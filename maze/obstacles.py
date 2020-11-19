@@ -3,11 +3,32 @@ import random
 x = 0
 y = 0
 
-def create_random_obstacles(): 
-    pass
+# def create_obstacles():
+#     '''
+#     Creates a random list of tuples containing one set of
+#     coordinates of each obstacle
+#     '''
+
+#     #generates random list of length <10 of random coordinates stored in tuples
 
 
-def is_position_blocked(x, y):
+#     return obstacles
+#     # obstacles = [(5, 7), (1,2), (13,4)]
+
+
+def get_obstacles():
+    '''
+    Ensures new list of obstacles isn't 
+    recalculated each time fn is called
+    '''
+
+    obstacles = [(random.randint(-100,100), random.randint(-200,200)) 
+    for coord in range(random.randint(0,10))]
+
+    return obstacles
+
+
+def is_position_blocked(x, y, obstacles):
     '''
     Checks to see if destined x and y coords cross over any of
     the obstacle coords.
@@ -20,11 +41,13 @@ def is_position_blocked(x, y):
     for obstacle in obstacles:
         if x in range(obstacle[0], obstacle[0] + 4) and y in range(obstacle[1], obstacle[1] + 4):
             obstacle_present = True
+    
+    # print("is position blocked, ", x, y, obstacles, obstacle_present)
 
     return obstacle_present
 
 
-def is_path_blocked(x1, y1, x2, y2):
+def is_path_blocked(x1,y1,x2,y2, obstacles):
     '''
     Looks ahead to see if destined position will come into contact
     with an obstacle.
@@ -55,18 +78,6 @@ def is_path_blocked(x1, y1, x2, y2):
                         path_is_blocked = True
 
     return path_is_blocked
-
-
-def get_obstacles():
-    '''
-    Creates a random list of tuples containing one set of
-    coordinates of each obstacle
-    '''
-    #generates random list of length <10 of random coordinates stored in tuples
-    obstacles = [(random.randint(-100,100), random.randint(-200,200)) 
-    for coord in range(random.randint(0,10))]
-
-    return obstacles
 
 
 def print_obstacles(obstacles):

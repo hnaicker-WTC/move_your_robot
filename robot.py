@@ -280,7 +280,7 @@ def add_to_history(command):
     history.append(command)
 
 
-def robot_start(worldArg='text'):
+def robot_start(worldArg, selected_maze):
     """This is the entry point for starting my robot"""
 
     global history, environment
@@ -310,10 +310,9 @@ def robot_start(worldArg='text'):
 
 if __name__ == "__main__":
 
-    if len(sys.argv) == 1:
-        robot_start()
-    elif len(sys.argv) > 1:
-        if sys.argv[1] == 'turtle':
-            robot_start('turtle')
-        else:
-            robot_start()
+    if len(sys.argv) == 2:
+        robot_start(sys.argv[1], None)
+    elif len(sys.argv) == 3:
+        robot_start(sys.argv[1], sys.argv[2])
+    else:
+        robot_start('text',None)
