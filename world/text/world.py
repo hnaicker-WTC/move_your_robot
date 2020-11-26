@@ -1,5 +1,7 @@
 # from ..obstacles import obstacles
 from maze import obstacles
+from maze import hiranya_maze
+from import_helper import dynamic_import
 
 # variables tracking position and direction
 position_x = 0
@@ -11,12 +13,18 @@ current_direction_index = 0
 min_y, max_y = -200, 200
 min_x, max_x = -100, 100
 
-def initialise():
+valid_mazes = [hiranya_maze, test_maze]
+
+def initialise(selected_maze):
     """
     Initiate text module.
     """
     global position_x, position_y, current_direction_index
-    _obstacles = obstacles.get_obstacles()
+
+    if selected_maze == 'obstacles':
+        _obstacles = obstacles.get_obstacles()
+    elif selected_maze in valid_mazes:
+        _obstacles = dynamic_import(f'maze.{argument.lower()}')
 
     obstacles.print_obstacles(_obstacles)
 

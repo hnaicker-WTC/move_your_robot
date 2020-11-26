@@ -3,6 +3,10 @@ import world.text.world as blueworld
 import world.turtle.world as turtleworld
 
 
+
+#list of mazes
+valid_mazes = [hiranya_maze]
+
 # list of valid command names
 valid_commands = ['off', 'help', 'replay', 'forward', 'back', 'right', 'left', 
 'sprint']
@@ -280,6 +284,7 @@ def add_to_history(command):
     history.append(command)
 
 
+# def robot_start(worldArg='text'):
 def robot_start(worldArg, selected_maze):
     """This is the entry point for starting my robot"""
 
@@ -293,7 +298,10 @@ def robot_start(worldArg, selected_maze):
     if worldArg == 'turtle':
         environment = turtleworld
 
-    obstacles = environment.initialise()
+    
+    
+    obstacles = environment.initialise(selected_maze)
+     
 
 
     history = []
@@ -310,9 +318,33 @@ def robot_start(worldArg, selected_maze):
 
 if __name__ == "__main__":
 
+    # if len(sys.argv) == 1:
+    #     robot_start('text', None) 
+    # elif len(sys.argv) == 2:
+    #     for arg in sys.argv:
+    #         arg.lower()
+    #         if 'turtle' in arg:
+    #             robot_start('turtle', None)
+    #         else:
+    #             robot_start('text', None)
+    # elif len(sys.argv) > 2:
+    #     for arg in sys.argv:
+    #         arg.lower()
+    #         if 'turtle' in arg:
+    #             robot_start(arg, None)
+
+    
     if len(sys.argv) == 2:
         robot_start(sys.argv[1], None)
     elif len(sys.argv) == 3:
         robot_start(sys.argv[1], sys.argv[2])
     else:
-        robot_start('text',None)
+        robot_start('text','obstacles')
+
+    # if len(sys.argv) == 1:
+    #     robot_start()
+    # elif len(sys.argv) > 1:
+    #     if sys.argv[1] == 'turtle':
+    #         robot_start('turtle')
+    #     else:
+    #         robot_start()
