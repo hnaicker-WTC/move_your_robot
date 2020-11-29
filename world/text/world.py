@@ -1,4 +1,4 @@
-# from ..obstacles import obstacles
+import os.path
 from maze import obstacles
 from maze import hiranya_maze
 from import_helper import dynamic_import
@@ -13,7 +13,7 @@ current_direction_index = 0
 min_y, max_y = -200, 200
 min_x, max_x = -100, 100
 
-valid_mazes = [hiranya_maze, test_maze]
+valid_mazes = [hiranya_maze]
 
 def initialise(selected_maze):
     """
@@ -21,12 +21,17 @@ def initialise(selected_maze):
     """
     global position_x, position_y, current_direction_index
 
+    mazeModule = obstacles
+
     if selected_maze == 'obstacles':
         _obstacles = obstacles.get_obstacles()
-    elif selected_maze in valid_mazes:
-        _obstacles = dynamic_import(f'maze.{argument.lower()}')
+    elif os.path.isfile('maze/' + selected_maze + '.py'):
+        mazeModule = dynamic_import(f'maze.{selected_maze.lower()}')
+        _obstacles = mazeModule.get_obstacles()
+    else:
+        _obstacles = []
 
-    obstacles.print_obstacles(_obstacles)
+    print_obstacles(_obstacles)
 
     position_x = 0
     position_y = 0
@@ -34,7 +39,15 @@ def initialise(selected_maze):
 
     return _obstacles
 
+def print_obstacles(obstacles):
+    if(obstacles == None or len(obstacles) == 0):
+        return
 
+    print("There are some maze obstacles:")
+
+    for obstacle in obstacles:
+        print('- At position {},{} (to {},{})'.format(obstacle[0], obstacle[1], 
+        obstacle[0]+4, obstacle[1]+4))
 
 def teardown():
     """

@@ -1,5 +1,7 @@
+import os.path
 import turtle
 from maze import obstacles
+from import_helper import dynamic_import
 # from ..obstacles import obstacles
 
 michaelangelo = None 
@@ -15,15 +17,28 @@ min_y, max_y = -200, 200
 min_x, max_x = -100, 100
 
 
-def initialise():
+def initialise(selected_maze):
     """
     Initiate turtle module.
     """
     global michaelangelo
     michaelangelo = turtle.Turtle()
+    michaelangelo.speed(10)
+
+    mazeModule = obstacles
+
+    if selected_maze == 'obstacles':
+        _obstacles = obstacles.get_obstacles()
+    elif os.path.isfile('maze/' + selected_maze + '.py'):
+        mazeModule = dynamic_import(f'maze.{selected_maze.lower()}')
+        _obstacles = mazeModule.get_obstacles()
+    else:
+        _obstacles = []
+
+    mazeModule.print_obstacles(_obstacles)
 
     draw_outline()
-    _obstacles = obstacles.get_obstacles()
+    _obstacles = mazeModule.get_obstacles()
     draw_obstacles(_obstacles)
     set_michaelangelo()
 

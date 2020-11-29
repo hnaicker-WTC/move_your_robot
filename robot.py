@@ -1,15 +1,16 @@
 import sys
+import os.path
 import world.text.world as blueworld
 import world.turtle.world as turtleworld
 
 
 
 #list of mazes
-valid_mazes = [hiranya_maze]
+# valid_mazes = [hiranya_maze, test_maze]
 
 # list of valid command names
 valid_commands = ['off', 'help', 'replay', 'forward', 'back', 'right', 'left', 
-'sprint']
+'sprint', 'mazerun']
 move_commands = valid_commands[3:]
 
 # variables tracking position and direction
@@ -230,11 +231,16 @@ def do_replay(robot_name, arguments, obstacles):
     return True, ' > '+robot_name+' replayed ' + str(len(commands_to_replay)) + ' commands' + (' in reverse' if reverse else '') + (' silently.' if silent else '.')
 
 
+def do_mazerun():
+    pass
+
 def call_command(command_name, command_arg, robot_name, obstacles):
     global environment
 
     if command_name == 'help':
         return do_help()
+    elif command_name == 'mazerun':
+        return do_mazerun()
     elif command_name == 'forward':
         return do_forward(robot_name, int(command_arg), obstacles)
     elif command_name == 'back':
@@ -284,8 +290,9 @@ def add_to_history(command):
     history.append(command)
 
 
-# def robot_start(worldArg='text'):
-def robot_start(worldArg, selected_maze):
+
+# def robot_start(world_arg='text'):
+def robot_start(world_arg, selected_maze):
     """This is the entry point for starting my robot"""
 
     global history, environment
@@ -295,17 +302,12 @@ def robot_start(worldArg, selected_maze):
     output(robot_name, "Hello kiddo!")
 
     environment = blueworld
-    if worldArg == 'turtle':
+    if world_arg == 'turtle':
         environment = turtleworld
 
-    
-    
     obstacles = environment.initialise(selected_maze)
-     
-
 
     history = []
-    
     
     command = get_command(robot_name)
     while handle_command(robot_name, command, obstacles):
@@ -318,33 +320,14 @@ def robot_start(worldArg, selected_maze):
 
 if __name__ == "__main__":
 
-    # if len(sys.argv) == 1:
-    #     robot_start('text', None) 
-    # elif len(sys.argv) == 2:
-    #     for arg in sys.argv:
-    #         arg.lower()
-    #         if 'turtle' in arg:
-    #             robot_start('turtle', None)
-    #         else:
-    #             robot_start('text', None)
-    # elif len(sys.argv) > 2:
-    #     for arg in sys.argv:
-    #         arg.lower()
-    #         if 'turtle' in arg:
-    #             robot_start(arg, None)
+    worldVariable = 'text'
+    mazevariable = 'obstacles'
 
-    
-    if len(sys.argv) == 2:
-        robot_start(sys.argv[1], None)
-    elif len(sys.argv) == 3:
-        robot_start(sys.argv[1], sys.argv[2])
-    else:
-        robot_start('text','obstacles')
+    for arg in sys.argv:
+        if 'turtle' in arg:
+            worldVariable = 'turtle'
+        if os.path.isfile('maze/' + arg + '.py'):
+            mazevariable = arg
 
-    # if len(sys.argv) == 1:
-    #     robot_start()
-    # elif len(sys.argv) > 1:
-    #     if sys.argv[1] == 'turtle':
-    #         robot_start('turtle')
-    #     else:
-    #         robot_start()
+    robot_start(worldVariable, mazevariable)
+
