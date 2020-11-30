@@ -1,6 +1,6 @@
 class Node:
     # Initialize the class
-    def __init__(self, position:(), parent:()):
+    def __init__(self, position:(), parent:()): #change position to tuple?
         self.position = position
         self.parent = parent
         self.g = 0 # Distance to start node
@@ -23,8 +23,8 @@ def astar_search(map, start, end):
     unmapped = []
     mapped = []
     # Create a start node and an goal node
-    start_node = Node(start, None)
-    goal_node = Node(end, None)
+    start_node = Node(start, None) #start = (0,0)
+    goal_node = Node(end, None) 
     # Add the start node
     unmapped.append(start_node)
     

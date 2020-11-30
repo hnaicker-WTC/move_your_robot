@@ -4,7 +4,8 @@ from maze import obstacles
 from import_helper import dynamic_import
 # from ..obstacles import obstacles
 
-michaelangelo = None 
+michaelangelo = None
+
 
 # variables tracking position and direction
 position_x = 0
@@ -22,8 +23,10 @@ def initialise(selected_maze):
     Initiate turtle module.
     """
     global michaelangelo
+    screen = turtle.Screen() 
     michaelangelo = turtle.Turtle()
-    michaelangelo.speed(10)
+    
+    screen.tracer(0)
 
     mazeModule = obstacles
 
@@ -38,8 +41,9 @@ def initialise(selected_maze):
     mazeModule.print_obstacles(_obstacles)
 
     draw_outline()
-    _obstacles = mazeModule.get_obstacles()
+    # _obstacles = mazeModule.get_obstacles()
     draw_obstacles(_obstacles)
+    screen.tracer(1)
     set_michaelangelo()
 
     return _obstacles

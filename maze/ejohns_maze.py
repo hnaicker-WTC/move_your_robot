@@ -137,3 +137,4 @@ def get_obstacles():
     """Returns list of obstacles"""
     
     return obstacles
+

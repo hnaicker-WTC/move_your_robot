@@ -9,8 +9,8 @@ def get_obstacles():
     recalculated each time fn is called
     '''
 
-    obstacles = [(random.randint(-100,100), random.randint(-200,200)) 
-    for coord in range(200)]
+    obstacles = [(random.randint(-95,95), random.randint(-195,195)) 
+    for coord in range(500)]
 
     return obstacles
 

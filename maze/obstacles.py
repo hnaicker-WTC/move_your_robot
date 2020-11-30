@@ -3,18 +3,6 @@ import random
 x = 0
 y = 0
 
-# def create_obstacles():
-#     '''
-#     Creates a random list of tuples containing one set of
-#     coordinates of each obstacle
-#     '''
-
-#     #generates random list of length <10 of random coordinates stored in tuples
-
-
-#     return obstacles
-#     # obstacles = [(5, 7), (1,2), (13,4)]
-
 
 def get_obstacles():
     '''
