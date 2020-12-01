@@ -82,6 +82,8 @@ def is_position_allowed(position_x, position_y, new_x, new_y, obstacles1):
     :return: True if allowed, i.e. it falls in the allowed area, else False
     """
 
+    # print("in pos allowed, ", position_x, position_y, new_x, new_y, obstacles1)
+
     # check to see if obstacles don't block robot moving 
     if obstacles.is_path_blocked(position_x, position_y, new_x, new_y, obstacles1):
         return False, 'obstacles'

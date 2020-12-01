@@ -2,6 +2,7 @@ import sys
 import os.path
 import world.text.world as blueworld
 import world.turtle.world as turtleworld
+from maze import mazerunner
 
 
 
@@ -231,8 +232,8 @@ def do_replay(robot_name, arguments, obstacles):
     return True, ' > '+robot_name+' replayed ' + str(len(commands_to_replay)) + ' commands' + (' in reverse' if reverse else '') + (' silently.' if silent else '.')
 
 
-def do_mazerun():
-    pass
+def do_mazerun(robot_name, obstacles):
+    return mazerunner.run(robot_name, obstacles, environment)
 
 def call_command(command_name, command_arg, robot_name, obstacles):
     global environment
@@ -240,7 +241,7 @@ def call_command(command_name, command_arg, robot_name, obstacles):
     if command_name == 'help':
         return do_help()
     elif command_name == 'mazerun':
-        return do_mazerun()
+        return do_mazerun(robot_name, obstacles)
     elif command_name == 'forward':
         return do_forward(robot_name, int(command_arg), obstacles)
     elif command_name == 'back':
