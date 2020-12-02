@@ -46,8 +46,8 @@ def is_path_blocked(x1,y1,x2,y2, obstacles):
 
     path_is_blocked = False
 
-    print("In is path blocked obstacles: ", obstacles)
-    print("In is path blocked ", x1,y1,x2,y2)
+    # print("In is path blocked obstacles: ", obstacles)
+    # print("In is path blocked ", x1,y1,x2,y2)
 
     if x1 == x2:
         #only asseses obstacles moving vertically

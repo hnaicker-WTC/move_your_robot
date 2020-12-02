@@ -235,6 +235,7 @@ def do_replay(robot_name, arguments, obstacles):
 def do_mazerun(robot_name, obstacles):
     return mazerunner.run(robot_name, obstacles, environment)
 
+
 def call_command(command_name, command_arg, robot_name, obstacles):
     global environment
 

@@ -9,66 +9,40 @@ def get_obstacles():
     recalculated each time fn is called
     '''
 
-    negx = -50
-    negy = -100
-    posx = 50
-    posy = 100
-    obstacles = [(negx, negy), (negx, negy+5), (negx, negy+10), (negx, negy+15), (negx, negy+20), (negx, negy+25), (negx, negy+30), (negx, negy+35), (negx, negy+40), (negx, negy+45), 
-    (posx, posy), (posx, posy+5), (posx, posy+10), (posx, posy+15), (posx, posy+20), (posx, posy+25), (posx, posy+30), (posx, posy+35), (posx, posy+40), (posx, posy+45)]
+    negx = -60
+    negy = -180
+    posx = 60
+    posy = 180
+
+    def hollow_square(height):
+    y_index = 0
+
+    while(y_index < height):
+        x_index = 0
+        while(x_index < height): 
+
+            if (x_index == 0 or y_index == 0) or (x_index == height-1 or y_index ==height-1):
+                print("*",end ="")
+            else:
+                print(" ",end ="")
+
+            x_index +=1
+        y_index +=1
+        print("")
+
+    def hollow_rectangle(height):
+
+    for row in range(height):
+        if row == 0 or row == height - 1:
+            print("*"*(height+2))
+        else:
+            print("*" + " "*height + "*")
+
+
+    # obstacles = [(negx, negy), (negx, negy+5), (negx, negy+10), (negx, negy+15), (negx, negy+20), (negx, negy+25), (negx, negy+30), (negx, negy+35), (negx, negy+40), (negx, negy+45), 
+    # (posx, posy), (posx, posy+5), (posx, posy+10), (posx, posy+15), (posx, posy+20), (posx, posy+25), (posx, posy+30), (posx, posy+35), (posx, posy+40), (posx, posy+45)]
 
     return obstacles
-
-
-def is_position_blocked(x, y, obstacles):
-    '''
-    Checks to see if destined x and y coords cross over any of
-    the obstacle coords.
-    :param: x
-    :param: y
-    :return: True if there is an obstacle 
-    '''
-    obstacle_present = False
-
-    for obstacle in obstacles:
-        if x in range(obstacle[0], obstacle[0] + 4) and y in range(obstacle[1], obstacle[1] + 4):
-            obstacle_present = True
-    
-    # print("is position blocked, ", x, y, obstacles, obstacle_present)
-
-    return obstacle_present
-
-
-def is_path_blocked(x1,y1,x2,y2, obstacles):
-    '''
-    Looks ahead to see if destined position will come into contact
-    with an obstacle.
-    :param: x1,y1: original x and y pos
-    :param: x2,y2: potentially destined x and y pos
-    :return: True if there is an obstacle along the path
-    '''
-
-    path_is_blocked = False
-
-    # print("In is path blocked obstacles: ", obstacles)
-    # print("In is path blocked ", x1,y1,x2,y2)
-
-    if x1 == x2:
-        #only asseses obstacles moving vertically
-        for obstacle in obstacles:
-            if obstacle[1] >= min(y1,y2) and obstacle[1] <= max(y1,y2):
-                for current_y_pos in range (min(y1,y2), max(y1,y2)):
-                    if is_position_blocked(x2, current_y_pos, obstacles) == True:
-                        path_is_blocked = True
-
-    if y1 == y2:
-        #only asseses obstacles moving horizontally
-        for obstacle in obstacles:
-            if obstacle[0] >= min(x1,x2) and obstacle[0] <= max(x1,x2):
-                for current_x_pos in range (min(x1,x2), max(x1,x2)):
-                    if is_position_blocked(current_x_pos, y1, obstacles) ==True:
-                        path_is_blocked = True
-
-    return path_is_blocked
 
 
 def print_obstacles(obstacles):

@@ -145,12 +145,15 @@ def update_position(steps, obstacles):
     if can_move:
         position_x = new_x
         position_y = new_y
+        show_coords()
         michaelangelo.forward(steps)
 
         return True, reason
     return False, reason
 
 
+def show_coords():
+    return(position_x,position_y)
 
 def do_right_turn(robot_name):
     """
@@ -200,4 +203,7 @@ def teardown():
 # Step 4: We're done!
 # initialise()
 # draw_outline()
+position_y = 1
+position_x = 2
+print(show_coords())
 
