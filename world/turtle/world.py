@@ -25,6 +25,10 @@ def initialise(selected_maze):
     global michaelangelo
     screen = turtle.Screen() 
     michaelangelo = turtle.Turtle()
+    screen.setup((max_x - min_x) * 4, (max_y - min_y) * 4)
+    screen.setworldcoordinates(min_x, min_y, max_x, max_y)
+
+
     
     screen.tracer(0)
 
@@ -154,6 +158,7 @@ def update_position(steps, obstacles):
 
 def show_coords():
     return(position_x,position_y)
+
 
 def do_right_turn(robot_name):
     """
