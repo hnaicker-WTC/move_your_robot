@@ -42,6 +42,7 @@ def get_command(robot_name):
 
     prompt = ''+robot_name+': What must I do next? '
     command = input(prompt)
+    print("The command you just gave is {}".format(command))
     while len(command) == 0 or not valid_command(command):
         output(robot_name, "Sorry, I did not understand '"+command+"'.")
         command = input(prompt)
@@ -55,7 +56,7 @@ def split_command_input(command):
     as well as the argument(s) for the command
     :return: (command, argument)
     """
-    args = command.split(' ', 1)
+    args = command.split(' ', 2)
     if len(args) > 1:
         return args[0], args[1]
     return args[0], ''
@@ -79,7 +80,7 @@ def valid_command(command):
     Returns a boolean indicating if the robot can understand the command or not
     Also checks if there is an argument to the command, and if it a valid int
     """
-
+    edge_list = ['top', 'bottom', 'left', 'right']
     (command_name, arg1) = split_command_input(command)
 
     if command_name.lower() == 'replay':
@@ -95,7 +96,7 @@ def valid_command(command):
                 range_args = range_args.split('-')
                 return is_int(range_args[0]) and is_int(range_args[1]) and len(range_args) == 2
     else:
-        return command_name.lower() in valid_commands and (len(arg1) == 0 or is_int(arg1))
+        return command_name.lower() in valid_commands and (len(arg1) == 0 or is_int(arg1) or arg1.lower() in edge_list)
 
 
 def output(name, message):
@@ -233,7 +234,7 @@ def do_replay(robot_name, arguments, obstacles):
 
 
 def do_mazerun(robot_name, edge, obstacles):
-    print("The path that was found is:")
+    print("The path that was found is to this: {} ".format(edge))
     path = mazerunner.astar_search(obstacles, edge)
     return environment.do_mazerun_path(path, obstacles, robot_name, edge)
 
@@ -272,6 +273,9 @@ def handle_command(robot_name, command, obstacles):
     global environment
     
     (command_name, arg) = split_command_input(command)
+
+    print("command name is {}".format(command_name))
+    print("arg name is {}".format(arg))
 
     if command_name == 'off':
         return False

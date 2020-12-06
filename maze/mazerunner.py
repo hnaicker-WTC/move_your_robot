@@ -22,13 +22,14 @@ class Node:
 
 # A* search
 def astar_search(obstacles, edge):
+    print("I am trying to get to the {}", edge)
     
     # Create lists for open nodes and closed nodes
     open = []
     closed = []
     # Create a start node and an goal node
     start_node = Node((0,0), None)
-    goal_node = Node(find_edge_node(edge), None)
+    
     # Add the start node
     open.append(start_node)
     
@@ -42,7 +43,7 @@ def astar_search(obstacles, edge):
         closed.append(current_node)
         
         # Check if we have reached the goal, return the path
-        if current_node == goal_node:
+        if at_the_edge(edge, current_node.position):
             path = []
             while current_node != start_node:
                 path.append(current_node.position)
@@ -65,9 +66,10 @@ def astar_search(obstacles, edge):
             # Check if the neighbor is in the closed list
             if(neighbor in closed):
                 continue
+
             # Generate heuristics (Manhattan distance)
             neighbor.g = abs(neighbor.position[0] - start_node.position[0]) + abs(neighbor.position[1] - start_node.position[1])
-            neighbor.h = abs(neighbor.position[0] - goal_node.position[0]) + abs(neighbor.position[1] - goal_node.position[1])
+            neighbor.h = calculate_heuristic_off_edge(neighbor, edge) 
             neighbor.f = neighbor.g + neighbor.h
             # Check if neighbor is in open list and if it has a lower f value
             if(should_add_to_open(open, neighbor) == True):
@@ -77,9 +79,34 @@ def astar_search(obstacles, edge):
     return None
 
 
-def find_edge_node(edge):
-    
+def at_the_edge(edge, position):
+    if edge == 'top' and position[1] == 200:
+        return True
+    elif edge == 'bottom' and position[1] == -200:
+        return True
+    elif edge == 'right' and position[0] == 100:
+        return True
+    elif edge == 'left' and position[0] == 100:
+        return True
+    else:
+        return False
 
+
+#calculate the lowest heuristic from specified edge
+def calculate_heuristic_off_edge(neighbor, edge):
+
+    heuristic = 0
+
+    if edge == 'top':
+        heuristic = abs(neighbor.position[1] - 200)
+    elif edge == 'bottom':
+        heuristic = abs(neighbor.position[1] + 200)
+    elif edge == 'left':
+        heuristic = abs(neighbor.position[0] + 100)
+    elif edge == 'right':
+        heuristic = abs(neighbor.position[0] - 100)
+
+    return heuristic
 
 
 # Check if a neighbor should be added to open list
@@ -88,6 +115,7 @@ def should_add_to_open(open, neighbor):
         if (neighbor == node and neighbor.f >= node.f):
             return False
     return True
+
 
 def is_position_blocked(x, y, obstacles):
     '''
