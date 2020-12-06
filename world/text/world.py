@@ -39,6 +39,7 @@ def initialise(selected_maze):
 
     return _obstacles
 
+
 def print_obstacles(obstacles):
     if(obstacles == None or len(obstacles) == 0):
         return
@@ -49,24 +50,12 @@ def print_obstacles(obstacles):
         print('- At position {},{} (to {},{})'.format(obstacle[0], obstacle[1], 
         obstacle[0]+4, obstacle[1]+4))
 
+
 def teardown():
     """
     Terminate text module.
     """
     pass
-
-
-# def display_obstacles():
-#     '''
-#     Prints out positions of obstacles
-#     :return: list of tuples of obstacle positions
-#     '''
-#     _obstacles = obstacles.get_obstacles()
-
-#     for _obstacle in _obstacles:
-#         print("- At position {} (to {},{})",_obstacle, _obstacle[0]+4 ,
-#          _obstacle[1]+4 )
-#     return _obstacles
 
 
 def show_position(robot_name):
@@ -156,4 +145,24 @@ def do_left_turn(robot_name):
     return True, ' > '+robot_name+' turned left.'
 
 
+def go_the_correct_way(next_position, robot_name):
+    if next_position[1] > position_y:
+        required_direction = 0
+    elif next_position[1] < position_y:
+        required_direction = 2
+    elif next_position[0] > position_x:
+        required_direction = 1
+    else:
+        required_direction = 3
 
+    while current_direction_index != required_direction:
+        do_left_turn(robot_name)
+
+
+def do_mazerun_path(path, obstacles, robot_name, edge):
+    
+    for coord in path:
+        go_the_correct_way(coord, robot_name)
+        update_position(1, obstacles)
+
+    return True, ''+robot_name+': I am at the {edge} edge'

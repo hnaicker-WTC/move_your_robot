@@ -210,5 +210,5 @@ def teardown():
 # draw_outline()
 position_y = 1
 position_x = 2
-print(show_coords())
+# print(show_coords())
 

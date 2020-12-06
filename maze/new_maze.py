@@ -63,4 +63,4 @@ def print_obstacles(obstacles):
         print('- At position {},{} (to {},{})'.format(obstacle[0], obstacle[1], 
         obstacle[0]+4, obstacle[1]+4))
 
-print(get_obstacles())
+# print(get_obstacles())

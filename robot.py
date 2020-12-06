@@ -232,8 +232,10 @@ def do_replay(robot_name, arguments, obstacles):
     return True, ' > '+robot_name+' replayed ' + str(len(commands_to_replay)) + ' commands' + (' in reverse' if reverse else '') + (' silently.' if silent else '.')
 
 
-def do_mazerun(robot_name, obstacles):
-    return mazerunner.run(robot_name, obstacles, environment)
+def do_mazerun(robot_name, edge, obstacles):
+    print("The path that was found is:")
+    path = mazerunner.astar_search(obstacles, edge)
+    return environment.do_mazerun_path(path, obstacles, robot_name, edge)
 
 
 def call_command(command_name, command_arg, robot_name, obstacles):
@@ -242,7 +244,7 @@ def call_command(command_name, command_arg, robot_name, obstacles):
     if command_name == 'help':
         return do_help()
     elif command_name == 'mazerun':
-        return do_mazerun(robot_name, obstacles)
+        return do_mazerun(robot_name, command_arg, obstacles)
     elif command_name == 'forward':
         return do_forward(robot_name, int(command_arg), obstacles)
     elif command_name == 'back':
