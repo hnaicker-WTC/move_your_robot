@@ -200,15 +200,26 @@ def teardown():
     """
     turtle.bye()
 
-# initialise()
-# update_position(50)
-# do_right_turn("poop")
-# update_position(150)
 
-# Step 4: We're done!
-# initialise()
-# draw_outline()
-position_y = 1
-position_x = 2
-# print(show_coords())
+def go_the_correct_way(next_position, robot_name):
+    if next_position[1] > position_y:
+        required_direction = 0
+    elif next_position[1] < position_y:
+        required_direction = 2
+    elif next_position[0] > position_x:
+        required_direction = 1
+    else:
+        required_direction = 3
+
+    while current_direction_index != required_direction:
+        do_left_turn(robot_name)
+
+
+def do_mazerun_path(path, obstacles, robot_name, edge):
+    
+    for coord in path:
+        go_the_correct_way(coord, robot_name)
+        update_position(1, obstacles)
+
+    return True, ''+robot_name+':  I am at the {} edge'.format(edge)
 

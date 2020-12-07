@@ -44,7 +44,7 @@ def print_obstacles(obstacles):
     if(obstacles == None or len(obstacles) == 0):
         return
 
-    print("There are some maze obstacles:")
+    print("There are some obstacles:")
 
     for obstacle in obstacles:
         print('- At position {},{} (to {},{})'.format(obstacle[0], obstacle[1], 
@@ -165,4 +165,4 @@ def do_mazerun_path(path, obstacles, robot_name, edge):
         go_the_correct_way(coord, robot_name)
         update_position(1, obstacles)
 
-    return True, ''+robot_name+': I am at the {edge} edge'
+    return True, ''+robot_name+': I am at the {} edge'.format(edge)  

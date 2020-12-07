@@ -71,7 +71,7 @@ def print_obstacles(obstacles):
     if(obstacles == None or len(obstacles) == 0):
         return
 
-    print("There are some maze obstacles:")
+    print("There are some obstacles:")
 
     for obstacle in obstacles:
         print('- At position {},{} (to {},{})'.format(obstacle[0], obstacle[1], 

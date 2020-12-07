@@ -1,13 +1,20 @@
 import sys
 import os.path
-import world.text.world as blueworld
-import world.turtle.world as turtleworld
 from maze import mazerunner
 
+world_arg = 'text'
+selected_maze = 'obstacles'
 
+for arg in sys.argv:
+    if 'turtle' in arg:
+        import world.turtle.world as environment
+    elif 'text' in arg:
+        import world.text.world as environment
+    elif os.path.isfile('maze/' + arg + '.py'):
+        selected_maze = arg
+    else:
+        import world.text.world as environment
 
-#list of mazes
-# valid_mazes = [hiranya_maze, test_maze]
 
 # list of valid command names
 valid_commands = ['off', 'help', 'replay', 'forward', 'back', 'right', 'left', 
@@ -17,7 +24,6 @@ move_commands = valid_commands[3:]
 # variables tracking position and direction
 directions = ['forward', 'right', 'back', 'left']
 
-environment = None
 
 # area limit vars
 min_y, max_y = -200, 200
@@ -42,7 +48,7 @@ def get_command(robot_name):
 
     prompt = ''+robot_name+': What must I do next? '
     command = input(prompt)
-    print("The command you just gave is {}".format(command))
+
     while len(command) == 0 or not valid_command(command):
         output(robot_name, "Sorry, I did not understand '"+command+"'.")
         command = input(prompt)
@@ -234,7 +240,11 @@ def do_replay(robot_name, arguments, obstacles):
 
 
 def do_mazerun(robot_name, edge, obstacles):
-    print("The path that was found is to this: {} ".format(edge))
+
+    if edge == "":
+        edge = "top"
+    print(' > '+robot_name+' starting maze run..')
+    # print("The path that was found in robot.py.do_mazerun is to this: {} ".format(edge))
     path = mazerunner.astar_search(obstacles, edge)
     return environment.do_mazerun_path(path, obstacles, robot_name, edge)
 
@@ -274,8 +284,8 @@ def handle_command(robot_name, command, obstacles):
     
     (command_name, arg) = split_command_input(command)
 
-    print("command name is {}".format(command_name))
-    print("arg name is {}".format(arg))
+    # print("command name is {}".format(command_name))
+    # print("arg name is {}".format(arg))
 
     if command_name == 'off':
         return False
@@ -298,20 +308,15 @@ def add_to_history(command):
     history.append(command)
 
 
-
-# def robot_start(world_arg='text'):
-def robot_start(world_arg, selected_maze):
+def robot_start():
     """This is the entry point for starting my robot"""
 
-    global history, environment
-    # global position_x, position_y, current_direction_index, history, environment
+    global history, environment, selected_maze
 
     robot_name = get_robot_name()
     output(robot_name, "Hello kiddo!")
+    print("{}: Loaded {}.".format(robot_name, selected_maze))
 
-    environment = blueworld
-    if world_arg == 'turtle':
-        environment = turtleworld
 
     obstacles = environment.initialise(selected_maze)
 
@@ -323,19 +328,9 @@ def robot_start(world_arg, selected_maze):
 
     output(robot_name, "Shutting down..")
     environment.teardown()
-    environment = None
+    # environment = None
 
 
 if __name__ == "__main__":
-
-    worldVariable = 'text'
-    mazevariable = 'obstacles'
-
-    for arg in sys.argv:
-        if 'turtle' in arg:
-            worldVariable = 'turtle'
-        if os.path.isfile('maze/' + arg + '.py'):
-            mazevariable = arg
-
-    robot_start(worldVariable, mazevariable)
+    robot_start()
 

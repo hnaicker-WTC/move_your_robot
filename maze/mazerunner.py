@@ -22,7 +22,7 @@ class Node:
 
 # A* search
 def astar_search(obstacles, edge):
-    print("I am trying to get to the {}", edge)
+    # print("I am trying to get to the ", edge)
     
     # Create lists for open nodes and closed nodes
     open = []
@@ -56,13 +56,13 @@ def astar_search(obstacles, edge):
         # Get neighbors
         neighbors = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
         # Loop neighbors
-        for next in neighbors:
+        for adjacent_node in neighbors:
             
             # Check if the node is an obstacle
-            if is_position_blocked(next[0], next[1], obstacles):
+            if is_position_blocked(adjacent_node[0], adjacent_node[1], obstacles):
                 continue
             # Create a neighbor node
-            neighbor = Node(next, current_node)
+            neighbor = Node(adjacent_node, current_node)
             # Check if the neighbor is in the closed list
             if(neighbor in closed):
                 continue
@@ -73,7 +73,7 @@ def astar_search(obstacles, edge):
             neighbor.f = neighbor.g + neighbor.h
             # Check if neighbor is in open list and if it has a lower f value
             if(should_add_to_open(open, neighbor) == True):
-                # Everything is green, add neighbor to open list
+                # Add neighbor to open list
                 open.append(neighbor)
     # Return None, no path is found
     return None
@@ -86,7 +86,7 @@ def at_the_edge(edge, position):
         return True
     elif edge == 'right' and position[0] == 100:
         return True
-    elif edge == 'left' and position[0] == 100:
+    elif edge == 'left' and position[0] == -100:
         return True
     else:
         return False
