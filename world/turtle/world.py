@@ -202,6 +202,11 @@ def teardown():
 
 
 def go_the_correct_way(next_position, robot_name):
+    '''
+    Turns robot left till it is facing the correct direction
+    :param: next_position - tuple of position robot must move to
+    :param: robot_name
+    '''
     if next_position[1] > position_y:
         required_direction = 0
     elif next_position[1] < position_y:
@@ -216,7 +221,14 @@ def go_the_correct_way(next_position, robot_name):
 
 
 def do_mazerun_path(path, obstacles, robot_name, edge):
-    
+    '''
+    Moves the robot along the given path
+    :param: path - list of tuples
+    :param: obstacles
+    :param: robot_name
+    :param: edge - top/bottom/left/right
+    return: True when at the edge
+    '''
     for coord in path:
         go_the_correct_way(coord, robot_name)
         update_position(1, obstacles)

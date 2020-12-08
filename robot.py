@@ -240,6 +240,13 @@ def do_replay(robot_name, arguments, obstacles):
 
 
 def do_mazerun(robot_name, edge, obstacles):
+    '''
+    Executes mazerun with default being top edge
+    :param: robot_name
+    :param: edge - top/bottom/left/right
+    :param: obstacles - from either obstacles or selected maze
+    return: fn do_mazerun in repsective world
+    '''
 
     if edge == "":
         edge = "top"
