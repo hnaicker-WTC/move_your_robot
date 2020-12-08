@@ -1,3 +1,7 @@
+'''
+Creates an object 'node' that carries parameters attached to each node that will be used to prioritise a path.
+'''
+
 class Node:
     # Initialize the class
     def __init__(self, position:(), parent:()):
@@ -16,18 +20,19 @@ class Node:
     def __repr__(self):
         return ('({0},{1})'.format(self.position, self.f))
 
-# def run(robot_name, obstacles, environment):
-#     print("I am in maze run run()")
-#     return "",""
 
-# A* search
 def astar_search(obstacles, edge):
-    # print("I am trying to get to the ", edge)
+    '''
+    A* search algorithm that generates a path of a list of coordinates to a specific edge.
+    :param: obstacles - either obstacles or specified maze
+    :param: edge - top/bottom/left/right
+    return: path to edge- list of tuples 
+    '''
     
     # Create lists for open nodes and closed nodes
     open = []
     closed = []
-    # Create a start node and an goal node
+    # Create a start node
     start_node = Node((0,0), None)
     
     # Add the start node
@@ -44,6 +49,7 @@ def astar_search(obstacles, edge):
         
         # Check if we have reached the goal, return the path
         if at_the_edge(edge, current_node.position):
+            
             path = []
             while current_node != start_node:
                 path.append(current_node.position)
@@ -51,7 +57,7 @@ def astar_search(obstacles, edge):
             #path.append(start) 
             # Return reversed path
             return path[::-1]
-        # Unzip the current node position
+        # Separate the current node position into x,y
         (x, y) = current_node.position
         # Get neighbors
         neighbors = [(x-1, y), (x+1, y), (x, y-1), (x, y+1)]
@@ -92,8 +98,13 @@ def at_the_edge(edge, position):
         return False
 
 
-#calculate the lowest heuristic from specified edge
 def calculate_heuristic_off_edge(neighbor, edge):
+    '''
+    Calculates the lowest heuristic from specified edge
+    :param: neighbor - tuple
+    :param: edge
+    return: heuristic value-integer
+    '''
 
     heuristic = 0
 
@@ -109,8 +120,13 @@ def calculate_heuristic_off_edge(neighbor, edge):
     return heuristic
 
 
-# Check if a neighbor should be added to open list
 def should_add_to_open(open, neighbor):
+    '''
+    Checks if a neighbor coord should be added to open list
+    :param: open - list
+    :param: neighbor - tuple
+    return: False if neighbor coord already exists in open list and neighbor has a higher cost otherwise True
+    '''
     for node in open:
         if (neighbor == node and neighbor.f >= node.f):
             return False

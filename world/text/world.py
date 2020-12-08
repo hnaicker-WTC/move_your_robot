@@ -1,6 +1,5 @@
 import os.path
 from maze import obstacles
-from maze import hiranya_maze
 from import_helper import dynamic_import
 
 # variables tracking position and direction
@@ -13,7 +12,6 @@ current_direction_index = 0
 min_y, max_y = -200, 200
 min_x, max_x = -100, 100
 
-valid_mazes = [hiranya_maze]
 
 def initialise(selected_maze):
     """
