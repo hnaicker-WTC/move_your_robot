@@ -124,6 +124,8 @@ LEFT - turn left by 90 degrees
 SPRINT - sprint forward according to a formula
 REPLAY - replays all movement commands from history [FORWARD, BACK, RIGHT, LEFT, 
 SPRINT]
+MAZERUN - Robot automatically finds edge of environment setup. Add 'top,bottom,
+left or right to navigate to a specific edge.
 """
 
 
