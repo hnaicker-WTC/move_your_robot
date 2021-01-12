@@ -1,13 +1,22 @@
-# Problem - Toy Robot
+### Description
 
-* Modify your `robot.py` and other modules from *Toy Robot 4* to solve the problem as stated in the topic content.
-* You can run the program using the instructions in *To Run* below.
-* You can test technical correctness by running the unit tests as in the section *To Test* below.
+* A toy robot that can execute a set number of commands to move around a series of obstacles or a preselected maze all enclosed in a rectangular border.
+* This programme has a turtle graphics component that is initialised on execution of the programme by including the command-line argument `turtle` 
+  e.g.  `python3 robot.py turtle`.
+* To navigate through one of the mazes included in this repo specify on execution:
+  > Default `python3 robot.py` (random blocks of 5x5 will appear for the robot to navigate around)
+  > Text maze `python3 robot.py new_maze`
+  > Turtle graphics `python3 robot.py turtle new_maze`
+* Use the help function to learn more about what the robot can do
 
 ### To Run
 
 * `python3 robot.py`
-* follow the input prompts to get the desired output
+* optional flags for commandline are:
+  - turtle
+  - mazes (default == `obstacles`):
+    > `stupid_maze` or `new_maze`
+* follow the input prompts to move your robot around
 
 ### To Test
 
