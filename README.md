@@ -15,7 +15,7 @@
 * optional flags for commandline are:
   - turtle
   - mazes (default == `obstacles`):
-     ** `stupid_maze` or `new_maze`
+     -- `stupid_maze` or `new_maze`
 * follow the input prompts to move your robot around
 
 ### To Test
